@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import { FaEdit } from "react-icons/fa";
 import { MdOutlineDeleteForever } from "react-icons/md";
+import OrganizationEditModal from "./organizationEditModal";
 
 const organizationIndex = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -93,9 +94,9 @@ const organizationIndex = () => {
                                                 </span>
                                             </td>
                                             <td className="px-5 py-3 whitespace-nowrap">
-                                                <div className="flex flex-row gap-3 transition-transform duration-200 hover:scale-105">
-                                                    <FaEdit fontSize='14px' className="cursor-pointer transition-colors duration-200 hover:text-blue-500" />
-                                                    <MdOutlineDeleteForever fontSize='16px' className="text-red-400 hover:text-red-600 cursor-pointer transition-colors duration-200" />
+                                                <div className="flex flex-row gap-3 ">
+                                                    <FaEdit fontSize='14px' className="cursor-pointer transition-transform duration-200 hover:scale-105 transition-colors duration-200 text-blue-400 hover:text-blue-600" />
+                                                    <MdOutlineDeleteForever fontSize='16px' className="text-red-400 hover:text-red-600 cursor-pointer transition-transform duration-200 hover:scale-105 transition-colors duration-200" />
                                                 </div>
                                             </td>
                                         </tr>
@@ -158,6 +159,7 @@ const organizationIndex = () => {
                     </button>
                 </div>
             </div>
+            {/* <OrganizationEditModal /> */}
         </>
     )
 }
