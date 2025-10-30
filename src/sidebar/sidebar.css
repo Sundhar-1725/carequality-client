@@ -1,0 +1,39 @@
+.sidebar {
+    background: #fcfcfc;
+    color: #333;
+    height: 100vh;
+    width: 200px;
+    position: fixed;
+    z-index: 101;
+    /* overflow-y: auto; */
+    padding-top: 5px;
+    transition: width 0.5s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.top_section {
+    display: flex;
+    align-items: center;
+    padding: 20px 15px;
+}
+
+.logo {
+    font-size: 30px;
+}
+
+.bars {
+    display: flex;
+    font-size: 18px;
+    margin-left: auto;
+}
+
+.hidden-scrollbar {
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
