@@ -9,6 +9,9 @@ const organizationIndex = () => {
     const patientsPerPage = 10;
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [organizationData, setOrganizationData] = useState<any>();
+    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+    const [selectedOrganization, setSelectedOrganization] = useState<any>(null);
+
     useEffect(() => {
         // Fetch organization data or perform any setup
         const fetchData = async () => {
@@ -24,12 +27,12 @@ const organizationIndex = () => {
         }
         fetchData();
     }, [])
-    // const filteredPatients = organizationData.data?.filter((patient: any) =>
-    //     `${patient.first_name} ${patient.last_name} ${patient.dob} ${patient.document_type.join(" ")} ${patient.request_id}`
-    //         .toLowerCase()
-    //         .includes(searchQuery.toLowerCase())
-    // );
-    const totalPages = Math.ceil(500 / patientsPerPage);
+    const filteredOrganizations = Array.isArray(organizationData?.data) ? organizationData?.data.filter((org: any) =>
+        `${org?.organizationName} ${org?.id} ${org?.contactDetails?.[0]?.telecom?.[0]?.value} ${org?.contactDetails?.[0]?.telecom?.[1]?.value} ${org?.addressDetails?.country}`
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
+    ) : [];
+    const totalPages = Math.ceil(filteredOrganizations.length ?? 0 / patientsPerPage);
     const getPageNumbers = (total: number, current: number): (number | string)[] => {
         const delta = 2;
         const pages: (number | string)[] = [];
@@ -56,9 +59,9 @@ const organizationIndex = () => {
                 <div className="max-h-[450px] hidden-scrollbar" style={{
                     width: "100%"
                 }}>
-                    <div className="w-full overflow-x-auto  ">
+                    <div className="w-full overflow-x-auto">
                         <table className="min-w-full bg-white shadow-md rounded-lg" style={{ width: "100%" }}>
-                            <thead className="sticky top-0 bg-indigo-100 text-black-700 z-10">
+                            <thead className="bg-indigo-100 text-black-700 z-10" style={{ position: "sticky", top: 0 }}>
                                 <tr style={{ fontSize: "12px" }}>
                                     <th className="text-left px-5 py-2 font-semibold whitespace-nowrap">S.NO</th>
                                     <th className="text-left px-5 py-2 font-semibold whitespace-nowrap">Name</th>
@@ -95,7 +98,14 @@ const organizationIndex = () => {
                                             </td>
                                             <td className="px-5 py-3 whitespace-nowrap">
                                                 <div className="flex flex-row gap-3 ">
-                                                    <FaEdit fontSize='14px' className="cursor-pointer transition-transform duration-200 hover:scale-105 transition-colors duration-200 text-blue-400 hover:text-blue-600" />
+                                                    <FaEdit
+                                                        fontSize='14px'
+                                                        className="cursor-pointer transition-transform duration-200 hover:scale-105 transition-colors duration-200 text-blue-400 hover:text-blue-600"
+                                                        onClick={() => {
+                                                            setSelectedOrganization(orgData);
+                                                            setIsEditModalOpen(true);
+                                                        }}
+                                                    />
                                                     <MdOutlineDeleteForever fontSize='16px' className="text-red-400 hover:text-red-600 cursor-pointer transition-transform duration-200 hover:scale-105 transition-colors duration-200" />
                                                 </div>
                                             </td>
@@ -158,8 +168,8 @@ const organizationIndex = () => {
                         Last »
                     </button>
                 </div>
+                <OrganizationEditModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} organization={selectedOrganization} />
             </div>
-            {/* <OrganizationEditModal /> */}
         </>
     )
 }
