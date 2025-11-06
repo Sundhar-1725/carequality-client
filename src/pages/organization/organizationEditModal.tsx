@@ -37,7 +37,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
       {/* Form Fields */}
       <div className="grid grid-cols-2 gap-4">
         <div className="">
-        <label className="block text-gray-700 mb-1" >Organization Name :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >Organization Name :</label>
         <input
           type="text"
           id="orgName"
@@ -47,7 +47,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
         />
         </div>
         <div className="">
-        <label className="block text-gray-700 mb-1" >Organization ID :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >Organization ID :</label>
         <input
           type="text"
           id="orgId"
@@ -57,7 +57,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
         />
         </div>
         <div className="">
-        <label className="block text-gray-700 mb-1" >Email :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >Email :</label>
         <input
           type="text"
           id="email"
@@ -67,7 +67,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
         />
         </div>
         <div className="">
-        <label className="block text-gray-700 mb-1" >Contact Number :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >Contact Number :</label>
         <input
           type="text"
           id="contactNumber"
@@ -80,7 +80,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
 
       <div className="grid grid-cols-3 gap-3">
         <div className="">
-        <label className="block text-gray-700 mb-1" >Contact Name :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >Contact Name :</label>
         <input
           type="text"
           id="contactName"
@@ -90,7 +90,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
         />
         </div>
         <div className="">
-        <label className="block text-gray-700 mb-1" >Address Line :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >Address Line :</label>
         <input
           type="text"
           id="addressLine"
@@ -100,7 +100,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
         />
         </div>
         <div className="">
-        <label className="block text-gray-700 mb-1" >City :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >City :</label>
         <input
           type="text"
           id="city"
@@ -110,7 +110,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
         />
         </div>
         <div className="">
-        <label className="block text-gray-700 mb-1" >State :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >State :</label>
         <input
           type="text"
           id="state"
@@ -120,7 +120,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
         />
         </div>
         <div className="">
-        <label className="block text-gray-700 mb-1" >Country :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >Country :</label>
         <input
           type="text"
           id="country"
@@ -130,7 +130,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
         />
         </div>
         <div className="">
-        <label className="block text-gray-700 mb-1" >Postal Code :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >Postal Code :</label>
         <input
           type="text"
           id="postalCode"
@@ -143,7 +143,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
 
       <div className="grid grid-cols-1 gap-3">
         <div className="">
-        <label className="block text-gray-700 mb-1" >Full Url :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >Full Url :</label>
         <input
           type="text"
           id="fullUrl"
@@ -155,7 +155,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div className="">
-        <label className="block text-gray-700 mb-1" >Latitude :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >Latitude :</label>
         <input
           type="text"
           id="latitude"
@@ -164,7 +164,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
           value={organization?.Location?.[0]?.latitude || ""}
         />
         </div><div className="">
-        <label className="block text-gray-700 mb-1" >Longitude :</label>
+        <label className="block text-black mb-1 font-medium text-[15px]" >Longitude :</label>
         <input
           type="text"
           id="longitude"

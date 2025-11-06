@@ -44,7 +44,7 @@ const organizationIndex = () => {
             .toLowerCase()
             .includes(searchQuery.toLowerCase())
     ) : [];
-    const totalPages = Math.ceil(filteredOrganizations.length ?? 0 / patientsPerPage);
+    const totalPages = Math.ceil(filteredOrganizations.length / patientsPerPage);
     const getPageNumbers = (total: number, current: number): (number | string)[] => {
         const delta = 2;
         const pages: (number | string)[] = [];
