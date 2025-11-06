@@ -23,7 +23,8 @@ const organizationIndex = () => {
             // Simulate data fetching
             try {
                 console.log("Fetching organization data...");
-                const response = await axios.get('http://localhost:8000/api/fhir/Organization/getOrganization');
+                // const response = await axios.get('http://localhost:8000/api/fhir/Organization/getOrganization');
+                const response = await axios.get('https://carequality-server-1cw2.onrender.com/api/fhir/Organization/getOrganization');
                 console.log("Organization data:", response.data);
                 if (response.data.message.status === "success") {
                     setOrganizationData(response.data);
