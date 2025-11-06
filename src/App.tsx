@@ -18,7 +18,7 @@ function App() {
           }
         </Routes>
       </Sidebar>
-      <ToastContainer theme='dark' autoClose={1500}/>
+      <ToastContainer theme='dark' autoClose={1500} />
     </>
   )
 }

@@ -137,22 +137,23 @@ const organizationIndex = () => {
                 </div>
             </div>
             <div className="flex justify-center py-4">
-                <div className="inline-flex border border-gray-300 rounded overflow-hidden text-sm">
-
+                <div className="inline-flex border border-gray-300 rounded overflow-hidden text-xs sm:text-sm">
                     <button
                         onClick={() => setCurrentPage(1)}
                         disabled={currentPage === 1}
-                        className="px-3 py-1 text-blue-600 hover:underline hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed border-r border-gray-300"
+                        className="px-1 py-1 sm:px-2 md:px-3 text-blue-600 hover:underline hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed border-r border-gray-300"
                     >
-                        « First
+                        <span className="hidden sm:inline">« First</span>
+                        <span className="sm:hidden">««</span>
                     </button>
 
                     <button
                         onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                         disabled={currentPage === 1}
-                        className="px-3 py-1 text-blue-600 hover:underline hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed border-r border-gray-300"
+                        className="px-1 py-1 sm:px-2 md:px-3 text-blue-600 hover:underline hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed border-r border-gray-300"
                     >
-                        ‹ Prev
+                        <span className="hidden sm:inline">‹ Prev</span>
+                        <span className="sm:hidden">‹</span>
                     </button>
 
                     {getPageNumbers(totalPages, currentPage).map((page, index) =>
@@ -160,7 +161,7 @@ const organizationIndex = () => {
                             <button
                                 key={index}
                                 onClick={() => setCurrentPage(page)}
-                                className={`px-3 py-1 border-r border-gray-300 ${currentPage === page
+                                className={`px-1 py-1 sm:px-2 md:px-3 border-r border-gray-300 ${currentPage === page
                                     ? "bg-gray-200 text-gray-800 font-semibold"
                                     : "text-blue-600 hover:underline hover:cursor-pointer"
                                     }`}
@@ -168,24 +169,26 @@ const organizationIndex = () => {
                                 {page}
                             </button>
                         ) : (
-                            <span key={index} className="px-3 py-1 border-r border-gray-300">...</span>
+                            <span key={index} className="px-1 py-1 sm:px-2 md:px-3 border-r border-gray-300">...</span>
                         )
                     )}
 
                     <button
                         onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                         disabled={currentPage === totalPages}
-                        className="px-3 py-1 text-blue-600 hover:underline hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed border-r border-gray-300"
+                        className="px-1 py-1 sm:px-2 md:px-3 text-blue-600 hover:underline hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed border-r border-gray-300"
                     >
-                        Next ›
+                        <span className="hidden sm:inline">Next ›</span>
+                        <span className="sm:hidden">›</span>
                     </button>
 
                     <button
                         onClick={() => setCurrentPage(totalPages)}
                         disabled={currentPage === totalPages}
-                        className="px-3 py-1 text-blue-600 hover:underline hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-1 py-1 sm:px-2 md:px-3 text-blue-600 hover:underline hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        Last »
+                        <span className="hidden sm:inline">Last »</span>
+                        <span className="sm:hidden">»»</span>
                     </button>
                 </div>
                 <OrganizationEditModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} organization={selectedOrganization} />
