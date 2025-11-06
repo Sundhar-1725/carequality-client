@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
+import { toast } from "react-toastify";
 
 interface Props {
   isOpen: boolean;
@@ -185,7 +186,10 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
         Cancel
       </button>
       <button
-        onClick={onClose}
+        onClick={() => {
+          toast.warn("Save functionality not implemented yet.");
+          onClose();
+        }}
         className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
       >
         Save Changes

@@ -3,26 +3,37 @@ import { useEffect, useState } from "react"
 import { FaEdit } from "react-icons/fa";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import OrganizationEditModal from "./organizationEditModal";
+import Modal from "react-modal";
+import Loader from "../../components/loader/Loader";
+import { toast } from "react-toastify";
 
 const organizationIndex = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const patientsPerPage = 10;
-    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [searchQuery, _] = useState<string>("");
     const [organizationData, setOrganizationData] = useState<any>();
     const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
     const [selectedOrganization, setSelectedOrganization] = useState<any>(null);
-
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     useEffect(() => {
         // Fetch organization data or perform any setup
         const fetchData = async () => {
+            setIsLoading(true);
             // Simulate data fetching
-            console.log("Fetching organization data...");
-            const response = await axios.get('http://localhost:8000/api/fhir/Organization/getOrganization');
-            console.log("Organization data:", response.data);
-            if (response.data.status === "success") {
-                setOrganizationData(response.data);
-            } else {
-                setOrganizationData(null);
+            try {
+                console.log("Fetching organization data...");
+                const response = await axios.get('http://localhost:8000/api/fhir/Organization/getOrganization');
+                console.log("Organization data:", response.data);
+                if (response.data.message.status === "success") {
+                    setOrganizationData(response.data);
+                } else {
+                    setOrganizationData(null);
+                }
+            } catch (error) {
+                console.error("Error fetching organization data:", error);
+            } finally {
+                setIsLoading(false);
             }
         }
         fetchData();
@@ -55,6 +66,7 @@ const organizationIndex = () => {
     };
     return (
         <>
+            {isLoading && <Loader />}
             <div className="overflow-x-auto px-5">
                 <div className="max-h-[450px] hidden-scrollbar" style={{
                     width: "100%"
@@ -106,7 +118,14 @@ const organizationIndex = () => {
                                                             setIsEditModalOpen(true);
                                                         }}
                                                     />
-                                                    <MdOutlineDeleteForever fontSize='16px' className="text-red-400 hover:text-red-600 cursor-pointer transition-transform duration-200 hover:scale-105 transition-colors duration-200" />
+                                                    <MdOutlineDeleteForever
+                                                        fontSize='16px'
+                                                        className="text-red-400 hover:text-red-600 cursor-pointer transition-transform duration-200 hover:scale-105 transition-colors duration-200"
+                                                        onClick={() => {
+                                                            setSelectedOrganization(orgData);
+                                                            setIsDeleteModalOpen(true);
+                                                        }}
+                                                    />
                                                 </div>
                                             </td>
                                         </tr>
@@ -170,6 +189,61 @@ const organizationIndex = () => {
                 </div>
                 <OrganizationEditModal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} organization={selectedOrganization} />
             </div>
+            <Modal
+                isOpen={isDeleteModalOpen}
+                onRequestClose={() => { }}
+                shouldCloseOnOverlayClick={false}
+                ariaHideApp={false}
+                style={{
+                    overlay: {
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        backgroundColor: 'transparent',
+                        zIndex: 10000,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    },
+                    content: {
+                        position: 'relative',
+                        inset: 'unset', // let overlay flex centering handle placement
+                        width: '400px',
+                        padding: '20px',
+                        borderRadius: '8px',
+                        boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+                    },
+                }}
+            >
+                <div className="text-center">
+                    <h2 className="text-xl font-semibold mb-4 text-gray-800">Delete Organization</h2>
+                    <p className="text-gray-600 mb-6">
+                        Are you sure you want to delete "<strong>{selectedOrganization?.organizationName}</strong>"?
+                        This action cannot be undone.
+                    </p>
+                    <div className="flex justify-center gap-4">
+                        <button
+                            onClick={() => setIsDeleteModalOpen(false)}
+                            className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition-colors"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={() => {
+                                // Add delete logic here
+                                // console.log("Deleting organization:", selectedOrganization?.id);
+                                toast.warn("Delete functionality not implemented yet.");
+                                setIsDeleteModalOpen(false);
+                            }}
+                            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </>
     )
 }
