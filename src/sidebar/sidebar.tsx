@@ -3,6 +3,7 @@ import './sidebar.css'
 import { FaBars } from 'react-icons/fa';
 import { GrOrganization } from 'react-icons/gr';
 import { NavLink } from 'react-router-dom';
+import Header from '../header/header';
 interface SidebarProps {
     children: any;
 }
@@ -100,11 +101,10 @@ const Sidebar = ({ children }: SidebarProps) => {
                         transition: "margin-left 0.5s ease",
                     }}>
                         { /* Header */ }
-                    <div className='rounded-md shadow-md border-[5] bg-white flex items-center justify-center' style={{ padding: '10px', width: '100%', height: '10vh' }} >
-                        {/* <h2>{selected}</h2> */}
+                    {/* <div className='rounded-md shadow-md border-[5] bg-white flex items-center justify-center' style={{ padding: '10px', width: '100%', height: '10vh' }} >
                         <h2 className='font-semibold uppercase'>Carequality</h2>
-                        {/* <div>profile</div> */}
-                    </div>
+                    </div> */}
+                    <Header />
                     { /* Content */ }
                     <div className='rounded-md shadow-md border-[5] bg-white' style={{ padding: '10px', marginTop: '10px', height: '90vh' }} >
                         {children}

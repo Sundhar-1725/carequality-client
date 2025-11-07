@@ -37,7 +37,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
         {/* Form Fields */}
         <div className="grid grid-cols-2 gap-4">
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >Organization Name :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >Organization Name </label>
             <input
               type="text"
               id="orgName"
@@ -47,7 +47,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
             />
           </div>
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >Organization ID :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >Organization ID </label>
             <input
               type="text"
               id="orgId"
@@ -57,7 +57,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
             />
           </div>
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >Email :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >Email </label>
             <input
               type="text"
               id="email"
@@ -67,7 +67,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
             />
           </div>
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >Contact Number :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >Contact Number </label>
             <input
               type="text"
               id="contactNumber"
@@ -80,7 +80,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
 
         <div className="grid grid-cols-3 gap-3">
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >Contact Name :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >Contact Name </label>
             <input
               type="text"
               id="contactName"
@@ -90,17 +90,17 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
             />
           </div>
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >Address Line :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >Address Line </label>
             <input
               type="text"
               id="addressLine"
               className="border border-gray-300 rounded-md p-1 w-full"
               placeholder="Enter address line"
-              value={organization?.addressDetails?.line || ""}
+              value={organization?.addressDetails?.line|| ""}
             />
           </div>
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >City :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >City </label>
             <input
               type="text"
               id="city"
@@ -110,7 +110,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
             />
           </div>
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >State :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >State </label>
             <input
               type="text"
               id="state"
@@ -120,7 +120,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
             />
           </div>
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >Country :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >Country </label>
             <input
               type="text"
               id="country"
@@ -130,7 +130,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
             />
           </div>
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >Postal Code :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >Postal Code </label>
             <input
               type="text"
               id="postalCode"
@@ -143,7 +143,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
 
         <div className="grid grid-cols-1 gap-3">
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >Full Url :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >Full Url </label>
             <input
               type="text"
               id="fullUrl"
@@ -155,7 +155,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >Latitude :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >Latitude </label>
             <input
               type="text"
               id="latitude"
@@ -177,7 +177,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
         </div>
         <div className="grid grid-cols-3 gap-3">
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >ITI 38 :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >ITI 38 </label>
             <input
               type="text"
               id="latitude"
@@ -187,7 +187,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
             />
           </div>
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >ITI 39 :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >ITI 39 </label>
             <input
               type="text"
               id="latitude"
@@ -197,7 +197,7 @@ const OrganizationEditModal: React.FC<Props> = ({ isOpen, onClose, organization 
             />
           </div>
           <div className="">
-            <label className="block text-black mb-1 font-medium text-[15px]" >ITI 55 :</label>
+            <label className="block text-black mb-1 font-medium text-[15px]" >ITI 55</label>
             <input
               type="text"
               id="latitude"

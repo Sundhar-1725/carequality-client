@@ -1,21 +1,26 @@
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { FaEdit } from "react-icons/fa";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import OrganizationEditModal from "./organizationEditModal";
 import Modal from "react-modal";
 import Loader from "../../components/loader/Loader";
 import { toast } from "react-toastify";
+import OrganizationViewModal from "./organizationViewModal";
+import { useSelector } from "react-redux";
 
 const organizationIndex = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const patientsPerPage = 10;
-    const [searchQuery, _] = useState<string>("");
-    const [organizationData, setOrganizationData] = useState<any>();
+    // const [searchQuery, _] = useState<string>("");
+    const [organizationData, setOrganizationData] = useState<any>([]);
     const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
     const [selectedOrganization, setSelectedOrganization] = useState<any>(null);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [viewModal, setViewModal] = useState<boolean>(false);
+
+    const { searchQuery } = useSelector((state: any) => state.organization);
     useEffect(() => {
         // Fetch organization data or perform any setup
         const fetchData = async () => {
@@ -25,7 +30,6 @@ const organizationIndex = () => {
                 console.log("Fetching organization data...");
                 // const response = await axios.get('http://localhost:8000/api/fhir/Organization/getOrganization');
                 const response = await axios.get('https://carequality-server-1cw2.onrender.com/api/fhir/Organization/getOrganization');
-                console.log("Organization data:", response.data);
                 if (response.data.message.status === "success") {
                     setOrganizationData(response.data);
                 } else {
@@ -39,11 +43,13 @@ const organizationIndex = () => {
         }
         fetchData();
     }, [])
-    const filteredOrganizations = Array.isArray(organizationData?.data) ? organizationData?.data.filter((org: any) =>
-        `${org?.organizationName} ${org?.id} ${org?.contactDetails?.[0]?.telecom?.[0]?.value} ${org?.contactDetails?.[0]?.telecom?.[1]?.value} ${org?.addressDetails?.country}`
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase())
-    ) : [];
+    const filteredOrganizations = useMemo(() => {
+        return Array.isArray(organizationData?.data) ? organizationData?.data.filter((org: any) =>
+            searchQuery ? `${org?.organizationName} ${org?.id} ${org?.contactDetails?.[0]?.telecom?.[0]?.value} ${org?.contactDetails?.[0]?.telecom?.[1]?.value} ${org?.addressDetails?.country}`
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase()) : true
+        ) : organizationData;
+    }, [organizationData?.data, searchQuery]);
     const totalPages = Math.ceil(filteredOrganizations.length / patientsPerPage);
     const getPageNumbers = (total: number, current: number): (number | string)[] => {
         const delta = 2;
@@ -80,15 +86,21 @@ const organizationIndex = () => {
                                     <th className="text-left px-5 py-2 font-semibold whitespace-nowrap">Name</th>
                                     <th className="text-left px-5 py-2 font-semibold whitespace-nowrap">Organization Id</th>
                                     <th className="text-left px-5 py-2 font-semibold whitespace-nowrap">Email</th>
-                                    <th className="text-left px-5 py-2 font-semibold whitespace-nowrap">Contact Number</th>
-                                    <th className="text-left px-5 py-2 font-semibold whitespace-nowrap">Address</th>
+                                    {/* <th className="text-left px-5 py-2 font-semibold whitespace-nowrap">Contact Number</th> */}
+                                    {/* <th className="text-left px-5 py-2 font-semibold whitespace-nowrap">Address</th> */}
                                     <th className="text-left px-5 py-2 font-semibold whitespace-nowrap">Action</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
                                 {
-                                    Array.isArray(organizationData?.data) && organizationData?.data.slice((currentPage - 1) * patientsPerPage, currentPage * patientsPerPage).map((orgData: any, index: number) => (
-                                        <tr key={index} style={{ fontSize: "12px" }} className="hover:bg-gray-100">
+                                    Array.isArray(filteredOrganizations) && filteredOrganizations.slice((currentPage - 1) * patientsPerPage, currentPage * patientsPerPage).map((orgData: any, index: number) => (
+                                        <tr key={index} style={{ fontSize: "12px" }} className="hover:bg-gray-100" onClick={(e) => {
+                                            // Check if the click target is not an action button
+                                            if (!(e.target as HTMLElement).closest('.action-button')) {
+                                                setViewModal(true);
+                                                setSelectedOrganization(orgData);
+                                            }
+                                        }}>
                                             <td className="px-5 py-3 whitespace-nowrap">{(currentPage - 1) * patientsPerPage + index + 1}</td>
                                             <td className="px-5 py-3 whitespace-nowrap">{orgData?.organizationName ?? "--"}</td>
                                             <td className="px-5 py-3 whitespace-nowrap" style={{ maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis' }}>
@@ -99,30 +111,33 @@ const organizationIndex = () => {
                                                     {orgData?.contactDetails?.[0]?.telecom?.[0]?.value ?? "--"}
                                                 </span>
                                             </td>
-                                            <td className="px-5 py-3 whitespace-nowrap" style={{ maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                            {/* <td className="px-5 py-3 whitespace-nowrap" style={{ maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis' }}>
                                                 <span title={orgData?.contactDetails?.[0]?.telecom?.[1]?.value}>
                                                     {orgData?.contactDetails?.[0]?.telecom?.[1]?.value ?? "--"}
                                                 </span>
-                                            </td>
-                                            <td className="px-5 py-3 whitespace-nowrap" style={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                            </td> */}
+                                            {/* <td className="px-5 py-3 whitespace-nowrap" style={{ maxWidth: 250, overflow: 'hidden', textOverflow: 'ellipsis' }}>
                                                 <span>
                                                     {orgData?.addressDetails?.country ?? "--"}
                                                 </span>
-                                            </td>
+                                            </td> */}
                                             <td className="px-5 py-3 whitespace-nowrap">
                                                 <div className="flex flex-row gap-3 ">
                                                     <FaEdit
                                                         fontSize='14px'
-                                                        className="cursor-pointer transition-transform duration-200 hover:scale-105 transition-colors duration-200 text-blue-400 hover:text-blue-600"
-                                                        onClick={() => {
+                                                        className="cursor-pointer transition-transform duration-200 hover:scale-105 transition-colors duration-200 text-blue-400 hover:text-blue-600 action-button"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setViewModal(false);
                                                             setSelectedOrganization(orgData);
                                                             setIsEditModalOpen(true);
                                                         }}
                                                     />
                                                     <MdOutlineDeleteForever
                                                         fontSize='16px'
-                                                        className="text-red-400 hover:text-red-600 cursor-pointer transition-transform duration-200 hover:scale-105 transition-colors duration-200"
-                                                        onClick={() => {
+                                                        className="text-red-400 hover:text-red-600 cursor-pointer transition-transform duration-200 hover:scale-105 transition-colors duration-200 action-button"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
                                                             setSelectedOrganization(orgData);
                                                             setIsDeleteModalOpen(true);
                                                         }}
@@ -248,6 +263,8 @@ const organizationIndex = () => {
                     </div>
                 </div>
             </Modal>
+            <OrganizationViewModal isOpen={viewModal} onClose={() => setViewModal(false)} organization={selectedOrganization} />
+
         </>
     )
 }
